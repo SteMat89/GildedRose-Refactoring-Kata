@@ -4,7 +4,7 @@ namespace csharp
 {
     public class GildedRose
     {
-        IList<Item> items;
+        public IList<Item> items;
         public GildedRose(IList<Item> items)
         {
             this.items = items;
@@ -98,8 +98,12 @@ namespace csharp
                 {
                     items[i] = UpdateNormalItem(items[i], multiplier);
                 }
-
-                items[i].SellIn -= 1;
+                
+                if (items[i].Name != "Sulfuras, Hand of Ragnaros")
+                {
+                 
+                    items[i].SellIn -= 1;   
+                }
             }
         }
     }
