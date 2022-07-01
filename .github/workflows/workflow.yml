@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Restore Packages
+      - name: Install dependencies
 	run: nuget restore csharp/csharp.sln
       - name: Build
         run: msbuild.exe csharp/csharp.sln --configuration Release --no-restore
