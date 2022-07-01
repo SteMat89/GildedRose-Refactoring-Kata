@@ -26,7 +26,7 @@ jobs:
         run: nuget restore csharp/csharp.sln
 
       - name: Build solution
-        run: msbuild.exe csharp/csharp.sln -t:rebuild -property:Configuration=Release /p:platform="Any CPU"
+        run: msbuild.exe csharp/csharp.sln /p:configuration="Release" /p:platform="Any CPU"
 
       - name: Run UnitTests
         run: csharp\packages\NUnit.ConsoleRunner.3.15.2\tools\nunit3-console.exe csharp\bin\Release\csharp.dll
