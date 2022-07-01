@@ -5,20 +5,28 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
     strategy:
       matrix:
         dotnet-version: ['5.0.x']
 
     steps:
       - uses: actions/checkout@v3
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Install dependencies
-	run: nuget restore csharp/csharp.sln
-      - name: Build
-        run: msbuild.exe csharp/csharp.sln --configuration Release --no-restore
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+      
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v1.1
+      
+      - name: Restore Packages
+         run: nuget restore csharp/csharp.sln
+
+      - name: Build solution
+        run: msbuild.exe csharp/csharp.sln -t:rebuild -property:Configuration=Release
+
+      - name: Run UnitTests
+        run: ./NUnit.ConsoleRunner.3.13.0/tools/nunit3-console.exe csharp/bin/Debug/csharp.dll
