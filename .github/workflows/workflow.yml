@@ -10,7 +10,7 @@ jobs:
       matrix:
         dotnet-version: ['5.0.x']
 
-   steps:
+    steps:
       - uses: actions/checkout@v3
 
       - name: Setup MSBuild
@@ -23,7 +23,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
       
       - name: Restore Packages
-         run: nuget restore csharp/csharp.sln
+        run: nuget restore csharp/csharp.sln
 
       - name: Build solution
         run: msbuild.exe csharp/csharp.sln -t:rebuild -property:Configuration=Release
