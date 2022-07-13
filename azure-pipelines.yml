@@ -19,7 +19,7 @@ steps:
 
 - task: UseDotNet@2
   inputs:
-    version: '4.5.2'
+    version: '5.0.x'
     packageType: sdk
 - task: NuGetCommand@2
   inputs:
