@@ -18,9 +18,8 @@ steps:
 - task: NuGetToolInstaller@1
 
 - task: UseDotNet@2
-  displayName: 'Use .NET Core 6 sdk'
   inputs:
-    version: '6.0.106'
+    version: '5.0.x'
 
 - task: NuGetCommand@2
   inputs:
@@ -37,3 +36,9 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*Test.cs'
+    arguments: '--configuration $(buildConfiguration)'
